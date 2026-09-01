@@ -1,0 +1,824 @@
+
+:root {
+  --black:        #0a0a0b;   /* fond principal du site (presque noir) */
+  --black-soft:   #131210;   /* fond légèrement plus clair (sections alternées) */
+  --charcoal:     #1c1a16;   /* fond des cartes (produits, témoignages) */
+  --charcoal-2:   #242019;   /* fond des zones photo produit */
+  --gold:         #c9a227;   /* or principal (boutons, bordures, icônes) */
+  --gold-light:   #e8cf7a;   /* or clair (survol, accents, texte en italique) */
+  --gold-deep:    #8a6d1a;   /* or foncé (dégradés) */
+  --ivory:        #f3ecd9;   /* couleur du texte principal (blanc cassé) */
+  --muted:        #a89f8c;   /* couleur du texte secondaire (descriptions) */
+  --line:         rgba(201, 162, 39, 0.25); /* couleur des bordures fines dorées */
+
+  --font-display: 'Cormorant Garamond', serif; /* police des titres, élégante et romantique */
+  --font-body:    'Jost', sans-serif;           /* police du texte courant, sobre */
+
+  --radius: 2px;      /* rayon des coins arrondis (volontairement très léger = look premium) */
+  --wrap: 1180px;      /* largeur maximale du contenu centré */
+}
+
+/* -------------------------------------------------------------------------
+   2. RÉGLAGES DE BASE
+   ------------------------------------------------------------------------- */
+
+/* Fait en sorte que padding/border soient inclus dans la largeur d'un élément
+   (évite les mauvaises surprises de mise en page) */
+* { box-sizing: border-box; }
+
+/* Défilement doux quand on clique sur un lien du menu (ex: #boutique) */
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  background: var(--black);
+  color: var(--ivory);
+  font-family: var(--font-body);
+  font-weight: 300;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased; /* texte plus net sur écrans Mac/iOS */
+}
+
+img, svg { display: block; max-width: 100%; } /* empêche les images de déborder */
+
+a { color: inherit; text-decoration: none; } /* les liens n'héritent pas du style bleu/souligné par défaut */
+
+/* Titres : tous en police "display" (Cormorant Garamond) */
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  color: var(--ivory);
+  margin: 0 0 0.5em;
+  letter-spacing: 0.01em;
+}
+
+h1 { font-size: clamp(2.6rem, 6vw, 4.6rem); line-height: 1.05; } /* taille fluide selon l'écran */
+h2 { font-size: clamp(1.9rem, 3.4vw, 2.8rem); line-height: 1.15; }
+h3 { font-size: 1.3rem; }
+
+p { margin: 0 0 1em; color: var(--muted); }
+
+/* Conteneur centré réutilisé dans presque toutes les sections */
+.wrap {
+  max-width: var(--wrap);
+  margin: 0 auto;
+  padding: 0 28px;
+}
+
+/* Petit texte en majuscules au-dessus des titres de section  */
+.eyebrow {
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin: 0 0 0.9em;
+}
+
+/* Mot ou groupe de mots mis en valeur en italique doré dans un titre */
+.script {
+  font-style: italic;
+  color: var(--gold-light);
+  font-weight: 500;
+}
+
+/* Contour visible au clavier (accessibilité), doré au lieu du bleu par défaut */
+:focus-visible {
+  outline: 1.5px solid var(--gold-light);
+  outline-offset: 3px;
+}
+
+/* -------------------------------------------------------------------------
+   3. BOUTONS
+   ------------------------------------------------------------------------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 15px 34px;
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  border: 1px solid var(--gold);
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: all 0.25s ease;
+  white-space: nowrap;
+}
+/* Bouton principal : rempli d'un dégradé doré */
+.btn-gold {
+  background: linear-gradient(180deg, var(--gold-light), var(--gold));
+  color: var(--black);
+  border-color: var(--gold);
+}
+.btn-gold:hover { background: var(--gold-light); box-shadow: 0 0 0 1px var(--gold-light); }
+/* Bouton secondaire : transparent avec bordure fine */
+.btn-ghost {
+  background: transparent;
+  color: var(--ivory);
+  border-color: var(--line);
+}
+.btn-ghost:hover { border-color: var(--gold); color: var(--gold-light); }
+
+/* -------------------------------------------------------------------------
+   4. EN-TÊTE / NAVIGATION
+   ------------------------------------------------------------------------- */
+
+/* Barre collée en haut de l'écran (reste visible même en défilant) */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(10, 10, 11, 0.86);
+  backdrop-filter: blur(10px); /* effet "verre dépoli" derrière la barre */
+  border-bottom: 1px solid var(--line);
+}
+
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* logo à gauche, actions à droite */
+  height: 82px;
+}
+
+/* Bloc logo + nom de la boutique (utilisé dans l'en-tête ET le pied de page) */
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* ★ Image du logo (voir HTML : images/logo.png). object-fit:contain = jamais déformé */
+.brand-logo {
+  width: 34px;
+  height: 34px;
+  object-fit: contain;
+}
+/* Logo de secours dessiné en SVG (anneaux dorés), utilisé seulement si logo.png est absent */
+.brand-mark {
+  width: 34px;
+  height: 34px;
+  color: var(--gold);
+}
+.brand-text {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--ivory);
+}
+.brand-text em { color: var(--gold-light); font-style: italic; }
+
+/* Liens du menu (Boutique, À propos, etc.) */
+.main-nav {
+  display: flex;
+  gap: 34px;
+}
+.main-nav a {
+  font-size: 0.82rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  position: relative;
+  padding-bottom: 4px;
+  transition: color 0.2s ease;
+}
+/* Petit trait doré qui se déploie sous le lien au survol */
+.main-nav a::after {
+  content: "";
+  position: absolute;
+  left: 0; bottom: 0;
+  width: 0; height: 1px;
+  background: var(--gold);
+  transition: width 0.25s ease;
+}
+.main-nav a:hover { color: var(--ivory); }
+.main-nav a:hover::after { width: 100%; }
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+/* Bouton panier + pastille du nombre d'articles */
+.cart-btn {
+  position: relative;
+  background: none;
+  border: none;
+  color: var(--ivory);
+  cursor: pointer;
+  padding: 6px;
+}
+.cart-count {
+  position: absolute;
+  top: -4px; right: -6px;
+  background: var(--gold);
+  color: var(--black);
+  font-size: 0.65rem;
+  font-weight: 600;
+  width: 16px; height: 16px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+}
+
+/* Bouton "hamburger" (3 barres), masqué par défaut : visible seulement sur mobile (voir §15) */
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 6px;
+}
+.nav-toggle span {
+  width: 22px; height: 1.4px;
+  background: var(--gold);
+  transition: all 0.25s ease;
+}
+/* Quand le menu est ouvert (.is-open ajouté par le JS), les 3 barres forment une croix */
+.nav-toggle.is-open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+.nav-toggle.is-open span:nth-child(2) { opacity: 0; }
+.nav-toggle.is-open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+/* -------------------------------------------------------------------------
+   5. HERO (grande bannière d'accueil)
+   ------------------------------------------------------------------------- */
+.hero {
+  position: relative;   /* nécessaire pour positionner la bannière/overlay en absolu par-dessus */
+  padding: 130px 0 110px;
+  overflow: hidden;      /* empêche la photo de bannière de déborder de la section */
+  text-align: center;
+  background:
+    radial-gradient(ellipse at 50% -10%, rgba(201,162,39,0.14), transparent 60%),
+    var(--black);
+}
+
+/* ★ Photo de bannière : occupe tout le fond du hero, derrière le texte.
+   object-fit:cover = remplit tout l'espace sans déformer l'image. */
+.hero-banner-img {
+  position: absolute;
+  inset: 0;              /* raccourci pour top:0; right:0; bottom:0; left:0 */
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+}
+
+/* Voile sombre au-dessus de la photo pour garder le texte doré lisible */
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(10,10,11,0.55), rgba(10,10,11,0.85));
+  z-index: 1;
+}
+
+/* Grille dorée décorative (visible surtout quand il n'y a pas de photo de bannière) */
+.hero-glow {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(var(--line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--line) 1px, transparent 1px);
+  background-size: 64px 64px;
+  opacity: 0.12;
+  mask-image: radial-gradient(ellipse at 50% 30%, black, transparent 70%);
+  z-index: 1;
+}
+
+/* Contenu texte du hero, toujours au-dessus de la photo/overlay grâce à z-index */
+.hero-inner { position: relative; z-index: 2; max-width: 760px; margin: 0 auto; }
+.hero-text {
+  max-width: 560px;
+  margin: 24px auto 40px;
+  font-size: 1.05rem;
+}
+.hero-cta {
+  display: flex;
+  gap: 18px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* -------------------------------------------------------------------------
+   6. SÉPARATEUR "CHAÎNE ENTRELACÉE" (élément signature du design)
+   Deux traits ondulés dorés qui s'entrecroisent, en écho aux bracelets/chaînes.
+   ------------------------------------------------------------------------- */
+.chain-divider {
+  height: 60px;
+  background: var(--black-soft);
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+.chain-divider svg { width: 100%; height: 100%; }
+.chain-path--a { stroke: var(--gold); opacity: 0.65; }
+.chain-path--b { stroke: var(--gold-light); opacity: 0.35; }
+.chain-divider--sm { height: 40px; } /* variante plus fine utilisée avant la section paiement */
+
+/* -------------------------------------------------------------------------
+   7. SECTIONS GÉNÉRIQUES (espacement commun à toutes les sections)
+   ------------------------------------------------------------------------- */
+.section { padding: 100px 0; }
+.section-head {
+  text-align: center;
+  max-width: 620px;
+  margin: 0 auto 52px;
+}
+.section-head h2 { margin: 0; }
+
+/* -------------------------------------------------------------------------
+   8. À PROPOS / VALEURS
+   ------------------------------------------------------------------------- */
+.about { background: var(--black-soft); } /* fond légèrement plus clair pour distinguer la section */
+.about-grid {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr; /* texte plus large que la liste de valeurs */
+  gap: 70px;
+  align-items: start;
+}
+.about-copy p { font-size: 1.02rem; }
+
+/* Liste des 6 valeurs, chaque ligne séparée par un filet doré fin */
+.value-list {
+  list-style: none;
+  margin: 0; padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  border-top: 1px solid var(--line);
+}
+.value-list li {
+  padding: 16px 4px;
+  border-bottom: 1px solid var(--line);
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  color: var(--ivory);
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+/* Petit point doré devant chaque valeur */
+.value-list li::before {
+  content: "";
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--gold);
+  flex-shrink: 0;
+}
+
+/* -------------------------------------------------------------------------
+   9. BOUTIQUE (filtres + grille de produits + sélecteur de couleurs)
+   ------------------------------------------------------------------------- */
+
+/* Boutons de filtre (Tout / Bracelets / Bagues / Jeux / T-shirts / Casquettes) */
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  margin-bottom: 46px;
+}
+.filter-btn {
+  background: transparent;
+  border: 1px solid var(--line);
+  color: var(--muted);
+  padding: 9px 20px;
+  font-family: var(--font-body);
+  font-size: 0.76rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border-radius: 999px; /* forme de pilule */
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.filter-btn:hover { color: var(--ivory); border-color: var(--gold); }
+/* Style du filtre actuellement sélectionné (classe .is-active ajoutée par le JS) */
+.filter-btn.is-active {
+  background: var(--gold);
+  border-color: var(--gold);
+  color: var(--black);
+  font-weight: 500;
+}
+
+/* Grille des cartes produit : 3 colonnes sur grand écran (voir §15 pour mobile/tablette) */
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 26px;
+}
+
+.product-card {
+  background: var(--charcoal);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  overflow: hidden;             /* garde la photo dans les coins arrondis de la carte */
+  transition: border-color 0.25s ease, transform 0.25s ease;
+}
+.product-card:hover {
+  border-color: var(--gold);
+  transform: translateY(-4px);  /* légère élévation au survol */
+}
+
+/* Zone image du produit (contient soit la photo réelle, soit l'icône de secours)
+   Ratio portrait 4:5, pour bien accueillir vos photos produits d'environ
+   600–1000 px de large sur 800–1000 px de haut, sans les écraser ni les étirer. */
+.product-media {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 30% 20%, rgba(201,162,39,0.16), transparent 55%),
+    var(--charcoal-2);
+  border-bottom: 1px solid var(--line);
+}
+/* ★ Photo produit réelle : remplit toute la zone portrait, recadrée proprement
+   (object-fit:cover) et centrée (object-position:center) pour bien cadrer le
+   produit même si la photo n'est pas exactement au ratio 4:5. */
+.product-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transition: opacity 0.15s ease; /* petit fondu doux quand on change de couleur */
+}
+/* Icône dorée de secours (affichée uniquement si la photo est introuvable, via le JS onerror) */
+.product-icon {
+  width: 76px; height: 76px;
+  color: var(--gold-light);
+  opacity: 0.9;
+}
+
+/* Étiquette "Best-seller" / "Nouveau" en haut à gauche de la photo */
+.badge {
+  position: absolute;
+  top: 14px; left: 14px;
+  font-size: 0.65rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 5px 10px;
+  border-radius: 999px;
+  z-index: 2; /* reste au-dessus de la photo */
+}
+.badge-best { background: var(--gold); color: var(--black); }
+.badge-new  { background: transparent; border: 1px solid var(--gold-light); color: var(--gold-light); }
+
+.product-body { padding: 22px; }
+.product-body h3 { margin-bottom: 6px; font-size: 1.25rem; }
+.product-desc { font-size: 0.9rem; margin-bottom: 16px; min-height: 42px; } /* hauteur mini = cartes alignées */
+
+/* Sélecteur de couleurs (pastilles rondes)
+   Un groupe ".color-swatches" par produit, contenant une pastille
+   ".color-swatch" par couleur/photo disponible pour ce produit.
+   Cliquer sur une pastille change la photo affichée au-dessus (voir JS). */
+.color-swatches {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+.color-swatch {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 1px solid var(--line);   /* fine bordure dorée discrète autour de chaque pastille */
+  padding: 0;
+  cursor: pointer;
+  position: relative;
+  transition: border-color 0.2s ease, transform 0.15s ease;
+}
+.color-swatch:hover { transform: scale(1.1); }
+/* Pastille actuellement sélectionnée (classe .is-active déplacée par le JS au clic) :
+   un anneau doré l'entoure pour bien montrer quelle couleur est affichée. */
+.color-swatch.is-active {
+  border-color: var(--gold);
+  box-shadow: 0 0 0 2px var(--black), 0 0 0 3.5px var(--gold);
+}
+
+/* Ligne du bas de la carte : prix à gauche, bouton "Ajouter" à droite */
+.product-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid var(--line);
+  padding-top: 16px;
+}
+.price {
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  color: var(--gold-light);
+  font-weight: 600;
+}
+.btn-add {
+  background: transparent;
+  border: 1px solid var(--gold);
+  color: var(--gold-light);
+  padding: 9px 18px;
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.btn-add:hover { background: var(--gold); color: var(--black); }
+
+/* -------------------------------------------------------------------------
+   10. PAIEMENT
+   ------------------------------------------------------------------------- */
+.payment { background: var(--black-soft); }
+.payment-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 4 cartes côte à côte */
+  gap: 22px;
+}
+/* ★ AJOUTÉ — alias explicite pour la classe .payment-grid--4 déjà présente
+   dans le HTML (MonCash / NatCash / Unibank / Sogebank). Garantit 4
+   colonnes sur grand écran indépendamment d'un futur changement de la
+   règle générique .payment-grid ci-dessus. */
+.payment-grid--4 {
+  grid-template-columns: repeat(4, 1fr);
+}
+.payment-card {
+  text-align: center;
+  padding: 34px 20px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  transition: border-color 0.2s ease;
+}
+.payment-card:hover { border-color: var(--gold); }
+.payment-card svg {
+  width: 30px; height: 30px;
+  margin: 0 auto 16px;
+  color: var(--gold);
+}
+.payment-card h3 { font-size: 1.05rem; margin-bottom: 6px; }
+.payment-card p { font-size: 0.85rem; margin: 0; }
+
+/* ★ AJOUTÉ — logos MonCash/NatCash/Unibank/Sogebank (<img class="payment-logo">).
+   object-fit:contain = le logo n'est jamais déformé ni recadré. */
+.payment-logo {
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
+  margin: 0 auto 16px;
+}
+/* ★ AJOUTÉ — lignes "Dépôt au...", "Compte N°...", "Titulaire..." sous
+   la description de chaque carte de paiement. Mis en valeur en ivoire,
+   avec le numéro/nom en gras et en doré clair pour ressortir. */
+.payment-number {
+  font-size: 0.82rem;
+  color: var(--ivory);
+  margin: 6px 0 0;
+  line-height: 1.4;
+}
+.payment-number strong {
+  color: var(--gold-light);
+  font-weight: 600;
+}
+
+.payment-note {
+  text-align: center;
+  margin: 40px 0 0;
+  font-size: 0.85rem;
+  letter-spacing: 0.02em;
+  color: var(--muted);
+}
+
+/* -------------------------------------------------------------------------
+   11. TÉMOIGNAGES
+   ------------------------------------------------------------------------- */
+.testi-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+.testi-card {
+  margin: 0;
+  padding: 30px;
+  border: 1px solid var(--line);
+  border-left: 2px solid var(--gold); /* filet doré épais à gauche = effet "citation" */
+  background: var(--charcoal);
+  border-radius: var(--radius);
+}
+.testi-card p {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1.1rem;
+  color: var(--ivory);
+  margin-bottom: 14px;
+}
+.testi-card cite {
+  font-style: normal;
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+/* -------------------------------------------------------------------------
+   12. NEWSLETTER
+   ------------------------------------------------------------------------- */
+.newsletter {
+  background: linear-gradient(180deg, var(--black-soft), var(--black));
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+.newsletter-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 40px;
+  flex-wrap: wrap; /* passe le formulaire à la ligne sur petit écran */
+}
+.newsletter-inner h2 { margin: 0; max-width: 420px; }
+.newsletter-form {
+  display: flex;
+  gap: 12px;
+  flex: 1 1 380px;
+  max-width: 460px;
+}
+.newsletter-form input {
+  flex: 1;
+  background: var(--charcoal);
+  border: 1px solid var(--line);
+  color: var(--ivory);
+  padding: 15px 18px;
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  border-radius: var(--radius);
+}
+.newsletter-form input:focus { outline: none; border-color: var(--gold); }
+.newsletter-form input::placeholder { color: var(--muted); }
+
+/* -------------------------------------------------------------------------
+   13. PIED DE PAGE
+   ------------------------------------------------------------------------- */
+.site-footer { padding: 90px 0 0; background: var(--black); }
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr 1fr 1fr; /* colonne marque plus large que les 3 colonnes de liens */
+  gap: 50px;
+  padding-bottom: 60px;
+  border-bottom: 1px solid var(--line);
+}
+.footer-brand p { max-width: 280px; font-size: 0.88rem; margin: 18px 0 20px; }
+.socials { display: flex; gap: 14px; }
+.socials a {
+  width: 36px; height: 36px;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--gold-light);
+  transition: border-color 0.2s ease, color 0.2s ease;
+}
+.socials a svg { width: 16px; height: 16px; }
+.socials a:hover { border-color: var(--gold); color: var(--gold); }
+
+.footer-col h4 {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 18px;
+}
+.footer-col a, .footer-col p {
+  display: block;
+  font-size: 0.88rem;
+  color: var(--muted);
+  margin-bottom: 10px;
+}
+.footer-col a:hover { color: var(--ivory); }
+
+.footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  padding: 26px 0;
+  font-size: 0.78rem;
+  color: var(--muted);
+}
+.footer-bottom p { margin: 0; }
+
+/* -------------------------------------------------------------------------
+   14. PANIER (tiroir latéral)
+   ------------------------------------------------------------------------- */
+.cart-drawer {
+  position: fixed;
+  top: 0; right: -380px;   /* caché hors écran par défaut, à droite */
+  width: 360px;
+  max-width: 88vw;
+  height: 100%;
+  background: var(--charcoal);
+  border-left: 1px solid var(--line);
+  z-index: 100;
+  transition: right 0.3s ease; /* glisse en douceur quand .is-open est ajouté */
+  display: flex;
+  flex-direction: column;
+  padding: 26px;
+}
+.cart-drawer.is-open { right: 0; } /* classe ajoutée par le JS pour faire apparaître le tiroir */
+.cart-drawer-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 16px;
+  margin-bottom: 16px;
+}
+.cart-drawer-head h3 { margin: 0; }
+#cart-close {
+  background: none; border: none;
+  color: var(--gold-light);
+  font-size: 1.6rem;
+  cursor: pointer;
+  line-height: 1;
+}
+.cart-items {
+  list-style: none;
+  margin: 0; padding: 0;
+  flex: 1;
+  overflow-y: auto; /* défilement interne si beaucoup d'articles */
+}
+.cart-items li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--line);
+  font-size: 0.88rem;
+}
+.cart-remove {
+  background: none; border: none;
+  color: var(--muted);
+  font-size: 1.1rem;
+  cursor: pointer;
+}
+.cart-empty { color: var(--muted); text-align: center; padding: 30px 0; }
+.cart-total {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 16px;
+  border-top: 1px solid var(--line);
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  color: var(--gold-light);
+}
+
+/* Fond sombre derrière le tiroir, cliquable pour fermer le panier */
+.cart-overlay {
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,0.55);
+  opacity: 0; pointer-events: none; /* invisible et non-cliquable par défaut */
+  transition: opacity 0.3s ease;
+  z-index: 90;
+}
+.cart-overlay.is-open { opacity: 1; pointer-events: auto; }
+
+/* -------------------------------------------------------------------------
+   15. RESPONSIVE — adaptation tablette puis mobile
+   ------------------------------------------------------------------------- */
+
+/* Écrans moyens (tablette) : 2 colonnes au lieu de 3/4 */
+@media (max-width: 980px) {
+  .product-grid { grid-template-columns: repeat(2, 1fr); }
+  .payment-grid,
+  .payment-grid--4 { grid-template-columns: repeat(2, 1fr); }
+  .testi-grid { grid-template-columns: 1fr; }
+  .about-grid { grid-template-columns: 1fr; gap: 44px; }
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+}
+
+/* Petits écrans (mobile) : menu transformé en panneau déroulant, tout en 1 colonne */
+@media (max-width: 720px) {
+  .main-nav {
+    position: fixed;
+    top: 82px; left: 0; right: 0;
+    background: var(--black-soft);
+    border-bottom: 1px solid var(--line);
+    flex-direction: column;
+    padding: 20px 28px;
+    gap: 18px;
+    transform: translateY(-8px);
+    opacity: 0;
+    pointer-events: none; /* menu invisible et non cliquable tant qu'il n'est pas ouvert */
+    transition: all 0.25s ease;
+  }
+  .main-nav.is-open { transform: translateY(0); opacity: 1; pointer-events: auto; }
+  .nav-toggle { display: flex; } /* le bouton "hamburger" n'apparaît qu'ici */
+  .product-grid { grid-template-columns: 1fr; }
+  .payment-grid,
+  .payment-grid--4 { grid-template-columns: 1fr; }
+  .footer-grid { grid-template-columns: 1fr; gap: 34px; }
+  .newsletter-inner { flex-direction: column; align-items: flex-start; }
+  .hero { padding: 100px 0 80px; }
+  .section { padding: 70px 0; }
+  /* Sur mobile, les pastilles de couleur restent bien lisibles au même format */
+  .color-swatch { width: 24px; height: 24px; }
+}

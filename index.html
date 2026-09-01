@@ -1,0 +1,995 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Raph's Beloved — Accessoires élégants pour couples</title>
+  <meta name="description" content="Raph's Beloved : bracelets, bagues, t-shirts et casquettes personnalisés pour couples. L'amour, porté avec élégance.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,500&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    .color-swatch{
+      display:inline-block;
+      width:22px;
+      height:22px;
+      border-radius:50%;
+      padding:0;
+      border:1px solid rgba(0,0,0,.15);
+      cursor:pointer;
+    }
+    .color-swatch.is-active{
+      outline:2px solid currentColor;
+      outline-offset:2px;
+    }
+  </style>
+    <link rel="icon" type="image/png" href="images/favicon.png">
+  
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <!-- Icône bracelet, utilisée si aucune photo produit n'est fournie -->
+    <symbol id="ic-bracelet" viewBox="0 0 64 64">
+      <ellipse cx="32" cy="32" rx="22" ry="14" fill="none" stroke="currentColor" stroke-width="2"/>
+      <ellipse cx="32" cy="32" rx="14" ry="9" fill="none" stroke="currentColor" stroke-width="1.4" stroke-dasharray="2 3"/>
+      <circle cx="10" cy="32" r="2" fill="currentColor"/>
+      <circle cx="54" cy="32" r="2" fill="currentColor"/>
+    </symbol>
+    <!-- Icône bague — image de secours pour la catégorie "Bagues" -->
+    <symbol id="ic-ring" viewBox="0 0 64 64">
+      <circle cx="32" cy="38" r="16" fill="none" stroke="currentColor" stroke-width="2.4"/>
+      <path d="M32 22l6 10-6 6-6-6 6-10z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+    </symbol>
+    <!-- Icône "jeu" (coffret/ensemble) — utilisée si aucune photo n'est fournie pour un produit "jeux" -->
+    <symbol id="ic-set" viewBox="0 0 64 64">
+      <circle cx="24" cy="40" r="10" fill="none" stroke="currentColor" stroke-width="2"/>
+      <ellipse cx="44" cy="24" rx="12" ry="8" fill="none" stroke="currentColor" stroke-width="2"/>
+      <path d="M38 20l6 6 6-6-6-4z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+    </symbol>
+    <!-- Icône t-shirt -->
+    <symbol id="ic-shirt" viewBox="0 0 64 64">
+      <path d="M22 12l10 6 10-6 10 8-6 8-4-2v26H26V26l-4 2-6-8z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+    </symbol>
+    <!-- Icône casquette / képi -->
+    <symbol id="ic-cap" viewBox="0 0 64 64">
+      <path d="M12 34c0-11 9-20 20-20s20 9 20 20" fill="none" stroke="currentColor" stroke-width="2"/>
+      <path d="M10 34h44v4a4 4 0 01-4 4H14a4 4 0 01-4-4v-4z" fill="none" stroke="currentColor" stroke-width="2"/>
+      <path d="M44 34h14c2 0 3 2 1 3l-13 5" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+    </symbol>
+    <!-- Icônes des moyens de paiement -->
+    <symbol id="ic-phone" viewBox="0 0 24 24">
+      <rect x="6" y="2" width="12" height="20" rx="2" fill="none" stroke="currentColor" stroke-width="1.6"/>
+      <line x1="10" y1="18" x2="14" y2="18" stroke="currentColor" stroke-width="1.6"/>
+    </symbol>
+    <symbol id="ic-card" viewBox="0 0 24 24">
+      <rect x="2" y="5" width="20" height="14" rx="2" fill="none" stroke="currentColor" stroke-width="1.6"/>
+      <line x1="2" y1="10" x2="22" y2="10" stroke="currentColor" stroke-width="1.6"/>
+    </symbol>
+    <symbol id="ic-paypal" viewBox="0 0 24 24">
+      <path d="M6 4h8c4 0 6 2.4 5.2 6-0.7 3.4-3.4 5-7 5H9.6L8.4 20H4L6 4z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="ic-truck" viewBox="0 0 24 24">
+      <rect x="1" y="7" width="13" height="9" fill="none" stroke="currentColor" stroke-width="1.6"/>
+      <path d="M14 10h4l4 3v3h-8v-6z" fill="none" stroke="currentColor" stroke-width="1.6"/>
+      <circle cx="6" cy="18" r="1.7" fill="none" stroke="currentColor" stroke-width="1.4"/>
+      <circle cx="17" cy="18" r="1.7" fill="none" stroke="currentColor" stroke-width="1.4"/>
+    </symbol>
+    <!-- Icône banque  -->
+    <symbol id="ic-bank" viewBox="0 0 24 24">
+      <path d="M3 10l9-6 9 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+      <rect x="3" y="10" width="18" height="9" fill="none" stroke="currentColor" stroke-width="1.6"/>
+      <line x1="3" y1="19" x2="21" y2="19" stroke="currentColor" stroke-width="1.6"/>
+      <line x1="6" y1="10" x2="6" y2="19" stroke="currentColor" stroke-width="1.4"/>
+      <line x1="12" y1="10" x2="12" y2="19" stroke="currentColor" stroke-width="1.4"/>
+      <line x1="18" y1="10" x2="18" y2="19" stroke="currentColor" stroke-width="1.4"/>
+    </symbol>
+    <!-- Icônes des réseaux sociaux (footer) -->
+    <symbol id="ic-ig" viewBox="0 0 24 24">
+      <rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="1.6"/>
+      <circle cx="12" cy="12" r="4.2" fill="none" stroke="currentColor" stroke-width="1.6"/>
+      <circle cx="17.2" cy="6.8" r="1" fill="currentColor"/>
+    </symbol>
+    <symbol id="ic-fb" viewBox="0 0 24 24">
+      <path d="M14 8.5h2.5V5H14c-2.2 0-4 1.8-4 4v2H8v3.5h2V21h3.5v-6.5H16l.5-3.5h-3V9c0-.5.5-1 1-1z" fill="currentColor"/>
+    </symbol>
+    <symbol id="ic-wa" viewBox="0 0 24 24">
+      <path d="M12 3a9 9 0 00-7.8 13.5L3 21l4.7-1.2A9 9 0 1012 3z" fill="none" stroke="currentColor" stroke-width="1.6"/>
+      <path d="M8.5 9c.3 3 2.5 5.2 5.5 5.5.9.1 1-.6 1-1.1l-.1-1-2-.6-1 1c-1-.5-1.8-1.3-2.3-2.3l1-1-.6-2H8.6c-.4 0-.6.5-.1 1.5z" fill="currentColor"/>
+    </symbol>
+  </defs>
+</svg>
+
+<header class="site-header" id="top">
+  <div class="wrap header-inner">
+
+    <a href="#top" class="brand" aria-label="Raph's Beloved — accueil">
+      <img
+        src="images/logo.png"
+        alt="Logo Raph's Beloved"
+        class="brand-logo"
+        onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+      <svg class="brand-mark" viewBox="0 0 64 64" aria-hidden="true" style="display:none">
+        <circle cx="24" cy="32" r="15" fill="none" stroke="currentColor" stroke-width="2"/>
+        <circle cx="40" cy="32" r="15" fill="none" stroke="currentColor" stroke-width="2"/>
+      </svg>
+      <span class="brand-text">Raph's <em>Beloved</em></span>
+    </a>
+
+    <nav class="main-nav" id="main-nav">
+      <a href="#boutique">Boutique</a>
+      <a href="#apropos">À propos</a>
+      <a href="#paiement">Paiement</a>
+      <a href="#avis">Avis</a>
+      <a href="#contact">Contact</a>
+    </nav>
+
+    <div class="header-actions">
+      <button class="cart-btn" id="cart-btn" aria-label="Voir le panier">
+        <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M3 4h2l2.4 12.4a2 2 0 002 1.6h8.2a2 2 0 002-1.6L20 8H6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><circle cx="9" cy="21" r="1.4" fill="currentColor"/><circle cx="18" cy="21" r="1.4" fill="currentColor"/></svg>
+        <span class="cart-count" id="cart-count">0</span> <!-- Nombre d'articles, mis à jour par le JS -->
+      </button>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Ouvrir le menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<section class="hero">
+
+  <img
+    src="images/baniere1.png"
+    alt="Bannière Raph's Beloved"
+    class="hero-banner-img"
+    onerror="this.style.display='none';">
+
+  <div class="hero-overlay" aria-hidden="true"></div>
+
+  <div class="hero-glow" aria-hidden="true"></div>
+
+  <div class="wrap hero-inner">
+    <p class="eyebrow">La maison des couples</p>
+    <h1>L'amour se porte<br><span class="script">avec élégance</span></h1>
+    <p class="hero-text">
+      Raph's Beloved crée des accessoires raffinés et personnalisés — bracelets, bagues,
+      t-shirts et casquettes — pensés pour deux. Chaque pièce raconte une complicité,
+      chaque détail est pensé pour durer.
+    </p>
+    <div class="hero-cta">
+      <a href="#boutique" class="btn btn-gold">Découvrir la collection</a>
+      <a href="#apropos" class="btn btn-ghost">Notre histoire</a>
+    </div>
+  </div>
+</section>
+
+<div class="chain-divider" aria-hidden="true">
+  <svg viewBox="0 0 1200 60" preserveAspectRatio="none">
+    <path class="chain-path chain-path--a" d="M0 30 C 100 0, 200 60, 300 30 S 500 0, 600 30 S 800 60, 900 30 S 1100 0, 1200 30" fill="none" stroke-width="1.2"/>
+    <path class="chain-path chain-path--b" d="M0 30 C 100 60, 200 0, 300 30 S 500 60, 600 30 S 800 0, 900 30 S 1100 60, 1200 30" fill="none" stroke-width="1.2"/>
+  </svg>
+</div>
+
+<section class="section about" id="apropos">
+  <div class="wrap about-grid">
+
+    <div class="about-copy">
+      <p class="eyebrow">Notre mission</p>
+      <h2>Symboliser l'amour, la complicité<br>et les moments inoubliables</h2>
+      <p>
+        Chez Raph's Beloved, nous pensons que les couples méritent des objets aussi uniques
+        que leur histoire. Nous concevons des accessoires élégants et personnalisables,
+        taillés dans des matériaux nobles, pour que chaque pièce devienne un souvenir
+        que l'on porte au quotidien.
+      </p>
+    </div>
+
+    <div class="values">
+      <p class="eyebrow">Nos valeurs</p>
+      <ul class="value-list">
+        <li><span>Amour</span></li>
+        <li><span>Qualité</span></li>
+        <li><span>Respect</span></li>
+        <li><span>Élégance</span></li>
+        <li><span>Innovation</span></li>
+        <li><span>Satisfaction client</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="section shop" id="boutique">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow">La collection</p>
+      <h2>Faites votre choix, à deux</h2>
+    </div>
+
+    <div class="filters" role="tablist" aria-label="Filtrer les produits">
+      <button class="filter-btn is-active" data-filter="all">Tout</button>
+      <button class="filter-btn" data-filter="bracelets">Bracelets</button>
+      <button class="filter-btn" data-filter="bagues">Bagues</button>
+      <button class="filter-btn" data-filter="jeux">Jeux</button>
+      <button class="filter-btn" data-filter="tshirts">T-shirts</button>
+      <button class="filter-btn" data-filter="casquettes">Casquettes</button>
+    </div>
+
+    <div class="product-grid" id="product-grid">
+
+      <!-- ================= CATÉGORIE : BRACELETS ================= -->
+
+      <!-- ---------- Produit 1 : Bracelet Cœur Magnétique Lumineux (2 couleurs) ---------- -->
+      <article class="product-card" data-cat="bracelets">
+        <div class="product-media">
+          <img src="images/bracelet.jpg" alt="Bracelet Cœur Magnétique Lumineux" class="product-photo"
+               onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+          <svg class="product-icon" viewBox="0 0 64 64" style="display:none"><use href="#ic-bracelet"/></svg>
+          <span class="badge badge-new">Nouveau</span>
+        </div>
+        <div class="product-body">
+          <h3>Bracelet Cœur Magnétique Lumineux</h3>
+          <p class="product-desc">Effet phosphorescent bleu, brille dans le noir.</p>
+          <div class="color-swatches">
+            <button class="color-swatch is-active" data-img="images/bracelet.jpg" style="background:#1a1a1a" aria-label="Noir"></button>
+            <button class="color-swatch" data-img="images/bracelet0.jpg" style="background:#ebe8e7" aria-label="Blanc"></button>
+          </div>
+          <div class="product-foot"><span class="price">1000 Gdes</span><button class="btn-add" data-name="Bracelet Cœur Magnétique Lumineux" data-price="1000">Ajouter</button></div>
+        </div>
+      </article>
+
+      <!-- ---------- Produit 2 : Bracelet Infini (1 couleur) ---------- -->
+      <article class="product-card" data-cat="bracelets">
+        <div class="product-media">
+          <img src="images/bracelet2.jpg" alt="Bracelet Infini" class="product-photo"
+               onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+          <svg class="product-icon" viewBox="0 0 64 64" style="display:none"><use href="#ic-bracelet"/></svg>
+          <span class="badge badge-new">Nouveau</span>
+        </div>
+        <div class="product-body">
+          <h3>Bracelet Infini</h3>
+          <p class="product-desc">Design fin et élégant, unisexe.</p>
+          <div class="color-swatches">
+            <button class="color-swatch is-active" data-img="images/bracelet.jpg" style="background:#C0C0C0" aria-label="Argenté"></button>
+          </div>
+          <div class="product-foot"><span class="price">1000 Gdes</span><button class="btn-add" data-name="Bracelet Infini" data-price="1000">Ajouter</button></div>
+        </div>
+      </article>
+
+      
+      <!-- ---------- Produit 3 : Bracelet Yin & Yang (1 couleur) ---------- -->
+      <article class="product-card" data-cat="bracelets">
+        <div class="product-media">
+          <img src="images/bracelet3.jpg" alt="Bracelet Yin & Yang" class="product-photo"
+               onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+          <svg class="product-icon" viewBox="0 0 64 64" style="display:none"><use href="#ic-bracelet"/></svg>
+          <span class="badge badge-new">Nouveau</span>
+        </div>
+        <div class="product-body">
+          <h3>Bracelet Yin & Yang</h3>
+          <p class="product-desc">Finitions argentées, taille réglable pour homme et femme.</p>
+          <div class="color-swatches">
+            <button class="color-swatch is-active" data-img="images/bracelet3.jpg" style="background:#101010" aria-label="Noir"></button>
+          </div>
+          <div class="product-foot"><span class="price">1000 Gdes</span><button class="btn-add" data-name="Bracelet Yin & Yang" data-price="1000">Ajouter</button></div>
+        </div>
+      </article>
+
+         <!-- ---------- Produit 4: Bracelet Yin & Yang Givré (1 couleur) ---------- -->
+      <article class="product-card" data-cat="bracelets">
+        <div class="product-media">
+          <img src="images/bracelet13.jpg" alt="Bracelet Yin & Yang Givré" class="product-photo"
+               onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+          <svg class="product-icon" viewBox="0 0 64 64" style="display:none"><use href="#ic-bracelet"/></svg>
+          <span class="badge badge-new">Nouveau</span>
+        </div>
+        <div class="product-body">
+          <h3>Bracelet Yin & Yang Givré</h3>
+          <p class="product-desc">Charm Yin & Yang émaillé, sertis de strass.</p>
+          <div class="product-foot"><span class="price">1000 Gdes</span><button class="btn-add" data-name="Bracelet Yin & Yang Givré" data-price="1000">Ajouter</button></div>
+        </div>
+      </article>
+
+      <!-- ---------- Produit 5: Bracelet Infini Tressé (1 couleur) ---------- -->
+      <article class="product-card" data-cat="bracelets">
+        <div class="product-media">
+          <img src="images/bracelet5.jpg" alt="Bracelet Infini Tressé" class="product-photo"
+               onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+          <svg class="product-icon" viewBox="0 0 64 64" style="display:none"><use href="#ic-bracelet"/></svg>
+          <span class="badge badge-new">Nouveau</span>
+        </div>
+        <div class="product-body">
+          <h3>Bracelet Infini Tressé</h3>
+          <p class="product-desc">Charm infini en métal argenté.</p>
+          <div class="product-foot"><span class="price">1000 Gdes</span><button class="btn-add" data-name="Bracelet Infini Tressé" data-price="1000">Ajouter</button></div>
+        </div>
+      </article>
+
+      <!-- ---------- Produit 6: Bracelet Couronne Royale (1 couleur) ---------- -->
+      <article class="product-card" data-cat="bracelets">
+        <div class="product-media">
+          <img src="images/bracelet6.jpg" alt="Bracelet Couronne Royale" class="product-photo"
+               onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+          <svg class="product-icon" viewBox="0 0 64 64" style="display:none"><use href="#ic-bracelet"/></svg>
+          <span class="badge badge-new">Nouveau</span>
+        </div>
+        <div class="product-body">
+          <h3>Bracelet Couronne Royale</h3>
+          <p class="product-desc">Charm couronne serti de strass, symbole royal.</p>
+          <div class="product-foot"><span class="price">1000 Gdes</span><button class="btn-add" data-name="Bracelet Couronne Royal" data-price="1000">Ajouter</button></div>
+        </div>
+      </article>
+
+      <!-- ---------- Produit 7: Bracelet Soleil & Lune Perlé (1 couleur) ---------- -->
+      <article class="product-card" data-cat="bracelets">
+        <div class="product-media">
+          <img src="images/bracelet7.jpg" alt="Bracelet Soleil & Lune Perlé" class="product-photo"
+               onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+          <svg class="product-icon" viewBox="0 0 64 64" style="display:none"><use href="#ic-bracelet"/></svg>
+          <span class="badge badge-new">Nouveau</span>
+        </div>
+        <div class="product-body">
+          <h3>Bracelet Soleil & Lune Perlé</h3>
+          <p class="product-desc">Bijou artisanal au style bohème-chic.</p>
+          <div class="product-foot"><span class="price">1000 Gdes</span><button class="btn-add" data-name="Bracelet Soleil & Lune Perlé" data-price="1000">Ajouter</button></div>
+        </div>
+      </article>
+      
+       <!-- ---------- Produit 8: Bracelet Howlite Blanche (1 couleur) ---------- -->
+      <article class="product-card" data-cat="bracelets">
+        <div class="product-media">
+          <img src="images/bracelet8.jpg" alt="Bracelet Howlite Blanche" class="product-photo"
+               onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+          <svg class="product-icon" viewBox="0 0 64 64" style="display:none"><use href="#ic-bracelet"/></svg>
+          <span class="badge badge-new">Nouveau</span>
+        </div>
+        <div class="product-body">
+          <h3>Bracelet Howlite Blanche</h3>
+          <p class="product-desc">Finition mate et texturée, aspect marbré unique.</p>
+          <div class="product-foot"><span class="price">1000 Gdes</span><button class="btn-add" data-name="Bracelet Howlite Blanche" data-price="1000">Ajouter</button></div>
+        </div>
+      </article>
+            
+       <!-- ---------- Produit 9: Bracelet Couronne Dorée (1 couleur) ---------- -->
+      <article class="product-card" data-cat="bracelets">
+        <div class="product-media">
+          <img src="images/bracelet9.jpg" alt="Bracelet Couronne Dorée" class="product-photo"
+               onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+          <svg class="product-icon" viewBox="0 0 64 64" style="display:none"><use href="#ic-bracelet"/></svg>
+          <span class="badge badge-new">Nouveau</span>
+        </div>
+        <div class="product-body">
+          <h3>Bracelet Couronne Dorée</h3>
+          <p class="product-desc">Alliance élégante du noir et de l'or.</p>
+          <div class="product-foot"><span class="price">1000 Gdes</span><button class="btn-add" data-name="Bracelet Couronne Dorée" data-price="1000">Ajouter</button></div>
+        </div>
+      </article>
+
+      <!-- ---------- Produit 10: Bracelet Infini Chaîne (1 couleur) ---------- -->
+      <article class="product-card" data-cat="bracelets">
+        <div class="product-media">
+          <img src="images/bracelet10.jpg" alt="Bracelet Infini Chaîne" class="product-photo"
+               onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+          <svg class="product-icon" viewBox="0 0 64 64" style="display:none"><use href="#ic-bracelet"/></svg>
+          <span class="badge badge-new">Nouveau</span>
+        </div>
+        <div class="product-body">
+          <h3>Bracelet Infini Chaîne</h3>
+          <p class="product-desc">Chaîne en acier inoxydable, ne ternit pas.</p>
+          <div class="product-foot"><span class="price">1000 Gdes</span><button class="btn-add" data-name="Bracelet Infini Chaîne" data-price="1000">Ajouter</button></div>
+        </div>
+      </article>
+
+         <!-- ---------- Produit 11: Bracelet Couronne Impériale (1 couleur) ---------- -->
+      <article class="product-card" data-cat="bracelets">
+        <div class="product-media">
+          <img src="images/bracelet11.jpg" alt="Bracelet Couronne Impériale" class="product-photo"
+               onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+          <svg class="product-icon" viewBox="0 0 64 64" style="display:none"><use href="#ic-bracelet"/></svg>
+          <span class="badge badge-new">Nouveau</span>
+        </div>
+        <div class="product-body">
+          <h3>Bracelet Couronne Impériale</h3>
+          <p class="product-desc">Perles en pierre naturelle, design double rang élégant et raffiné.</p>
+          <div class="product-foot"><span class="price">1000 Gdes</span><button class="btn-add" data-name="Bracelet Couronne Impériale" data-price="1000">Ajouter</button></div>
+        </div>
+      </article>
+
+      <!-- ---------- Produit 12: Bracelet Croix Lumineuse (1 couleur) ---------- -->
+      <article class="product-card" data-cat="bracelets">
+        <div class="product-media">
+          <img src="images/bracelet12.jpg" alt="Bracelet Croix Lumineuse" class="product-photo"
+               onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+          <svg class="product-icon" viewBox="0 0 64 64" style="display:none"><use href="#ic-bracelet"/></svg>
+          <span class="badge badge-new">Nouveau</span>
+        </div>
+        <div class="product-body">
+          <h3>Bracelet Croix Lumineuse</h3>
+          <p class="product-desc">Plaque croix phosphorescente, brille dans le noir.</p>
+          <div class="product-foot"><span class="price">1000 Gdes</span><button class="btn-add" data-name="Bracelet Croix Lumineuse" data-price="1000">Ajouter</button></div>
+        </div>
+      </article>
+
+      <!-- ---------- Produit 13: Bracelet Astre Céleste (1 couleur) ---------- -->
+      <article class="product-card" data-cat="bracelets">
+        <div class="product-media">
+          <img src="images/bracelet14.jpg" alt="Bracelet Astre Céleste" class="product-photo"
+               onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+          <svg class="product-icon" viewBox="0 0 64 64" style="display:none"><use href="#ic-bracelet"/></svg>
+          <span class="badge badge-new">Nouveau</span>
+        </div>
+        <div class="product-body">
+          <h3>Bracelet Astre Céleste</h3>
+          <p class="product-desc">Deux astres, une même lumière, design élégant et mystique.</p>
+          <div class="product-foot"><span class="price">1000 Gdes</span><button class="btn-add" data-name="Bracelet Astre Céleste" data-price="1000">Ajouter</button></div>
+        </div>
+      </article>
+
+      <!-- ---------- Produit 14: Bracelet Fil Rouge Porte-Bonheur (1 couleur) ---------- -->
+      <article class="product-card" data-cat="bracelets">
+        <div class="product-media">
+          <img src="images/bracelet15.jpg" alt="Bracelet Fil Rouge Porte-Bonheur" class="product-photo"
+               onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+          <svg class="product-icon" viewBox="0 0 64 64" style="display:none"><use href="#ic-bracelet"/></svg>
+          <span class="badge badge-new">Nouveau</span>
+        </div>
+        <div class="product-body">
+          <h3>Bracelet Fil Rouge Porte-Bonheur</h3>
+          <p class="product-desc">Perles dorées ajoutant une touche d'élégance.</p>
+          <div class="product-foot"><span class="price">1000 Gdes</span><button class="btn-add" data-name="Bracelet Fil Rouge Porte-Bonheur" data-price="1000">Ajouter</button></div>
+        </div>
+      </article>
+
+      <!-- ================= CATÉGORIE : BAGUES ================= -->
+
+      <!-- ---------- Produit 1 : Bague Soleil & Lune (2 couleurs) ---------- -->
+      <article class="product-card" data-cat="bagues">
+        <div class="product-media">
+          <img src="images/bague.jpg" alt="Bague Soleil & Lune" class="product-photo"
+               onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+          <svg class="product-icon" viewBox="0 0 64 64" style="display:none"><use href="#ic-ring"/></svg>
+          <span class="badge badge-new">Nouveau</span>
+        </div>
+        <div class="product-body">
+          <h3>Bague Soleil & Lune</h3>
+          <p class="product-desc">Paire d'anneaux fins, gravure intérieure offerte.</p>
+          <div class="color-swatches">
+            <button class="color-swatch is-active" data-img="images/bague.jpg" style="background:#0f0f0f" aria-label="Noir"></button>
+            <button class="color-swatch" data-img="images/bague2.jpg" style="background:#c0c0c0" aria-label="Argent"></button>
+          </div>
+          <div class="product-foot"><span class="price">1000 Gdes</span><button class="btn-add" data-name="Bague Soleil & Lune" data-price="1000">Ajouter</button></div>
+        </div>
+      </article>
+
+      <!-- ---------- Produit 2 : Bague Battement de Cœur (1 couleur) ---------- -->
+      <article class="product-card" data-cat="bagues">
+        <div class="product-media">
+          <img src="images/bague3.jpg" alt="Bague Battement de Cœur" class="product-photo"
+               onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+          <svg class="product-icon" viewBox="0 0 64 64" style="display:none"><use href="#ic-ring"/></svg>
+          <span class="badge badge-new">Nouveau</span>
+        </div>
+        <div class="product-body">
+          <h3>Bague Battement de Cœur</h3>
+          <p class="product-desc">Effet phosphorescent vert lumineux, brille dans le noir, design moderne et unisexe.</p>
+          <div class="color-swatches">
+            <button class="color-swatch is-active" data-img="images/products/bague-promesse-argent.jpg" style="background:#161616" aria-label="Noir"></button>
+          </div>
+          <div class="product-foot"><span class="price">1000 Gdes</span><button class="btn-add" data-name="Bague Battement de Cœur" data-price="1000">Ajouter</button></div>
+        </div>
+      </article>
+
+      <!-- ---------- Produit 3 : Bague Cœur Gravé (1 couleur) ---------- -->
+      <article class="product-card" data-cat="bagues">
+        <div class="product-media">
+          <img src="images/bague_noir.jpg" alt="Bague Cœur Gravé" class="product-photo"
+               onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+          <svg class="product-icon" viewBox="0 0 64 64" style="display:none"><use href="#ic-ring"/></svg>
+          <span class="badge badge-new">Nouveau</span>
+        </div>
+        <div class="product-body">
+          <h3>Bague Cœur Gravé</h3>
+          <p class="product-desc">Design assorti, parfait pour un couple uni.</p>
+          <div class="color-swatches">
+            <button class="color-swatch is-active" data-img="images/bague_noir.jpg" style="background:#161616" aria-label="Noir"></button>
+          </div>
+          <div class="product-foot"><span class="price">1000 Gdes</span><button class="btn-add" data-name="Bague Cœur Gravé" data-price="1000">Ajouter</button></div>
+        </div>
+      </article>
+
+       <!-- ---------- Produit 4 : Bague Cœur en Doigts (1 couleur) ---------- -->
+      <article class="product-card" data-cat="bagues">
+        <div class="product-media">
+          <img src="images/bague_noir2.jpg" alt="Bague Cœur en Doigts" class="product-photo"
+               onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+          <svg class="product-icon" viewBox="0 0 64 64" style="display:none"><use href="#ic-ring"/></svg>
+          <span class="badge badge-new">Nouveau</span>
+        </div>
+        <div class="product-body">
+          <h3>Bague Cœur en Doigts</h3>
+          <p class="product-desc">Cœurs phosphorescents, brillent dans le noir.</p>
+          <div class="color-swatches">
+            <button class="color-swatch is-active" data-img="images/bague_noir2.jpg" style="background:#161616" aria-label="Noir"></button>
+          </div>
+          <div class="product-foot"><span class="price">1000 Gdes</span><button class="btn-add" data-name="Bague Cœur en Doigts" data-price="1000">Ajouter</button></div>
+        </div>
+      </article>
+
+      <!-- ================= CATÉGORIE : JEUX (ensembles bague/bracelet/chaîne) ================= -->
+
+      <!-- ---------- Produit 1: Jeu Bague & Chaîne Cœurs Lumineux ---------- -->
+      <article class="product-card" data-cat="jeux">
+        <div class="product-media">
+          <img src="images/jeu2.jpg" alt="Jeu Bague & Chaîne - Cœurs Lumineux" class="product-photo"
+               onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+          <svg class="product-icon" viewBox="0 0 64 64" style="display:none"><use href="#ic-set"/></svg>
+          <span class="badge badge-new">Nouveau</span>
+        </div>
+        <div class="product-body">
+          <h3>Jeu Bague &amp; Chaîne Cœurs Lumineux</h3>
+          <p class="product-desc">Acier inoxydable de qualité premium, ne ternit pas.</p>
+          <div class="product-foot"><span class="price">1250 Gdes</span><button class="btn-add" data-name="Jeu Bague & Chaîne Cœurs Lumineux" data-price="1250">Ajouter</button></div>
+        </div>
+      </article>
+
+      <!-- ---------- Produit 2: Jeu Cœur en Doigts ---------- -->
+      <article class="product-card" data-cat="jeux">
+        <div class="product-media">
+          <img src="images/jeu4.jpg" alt="Jeu Cœur en Doigts" class="product-photo"
+               onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+          <svg class="product-icon" viewBox="0 0 64 64" style="display:none"><use href="#ic-set"/></svg>
+          <span class="badge badge-new">Nouveau</span>
+        </div>
+        <div class="product-body">
+          <h3>Jeu Cœur en Doigts</h3>
+          <p class="product-desc">Symbole moderne et mignon de l'amour partagé.</p>
+          <div class="product-foot"><span class="price">2000 Gdes</span><button class="btn-add" data-name="Jeu Cœur en Doigts" data-price="2000">Ajouter</button></div>
+        </div>
+      </article>
+
+      <!-- ---------- Produit 3 : Jeu Soleil & Lune Complet ---------- -->
+      <article class="product-card" data-cat="jeux">
+        <div class="product-media">
+          <img src="images/jeu3.jpg" alt="Jeu Soleil & Lune Complet" class="product-photo"
+               onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+          <svg class="product-icon" viewBox="0 0 64 64" style="display:none"><use href="#ic-set"/></svg>
+          <span class="badge badge-new">Nouveau</span>
+        </div>
+        <div class="product-body">
+          <h3>Jeu Soleil & Lune Complet</h3>
+          <p class="product-desc">Design moderne, parfait pour affirmer votre duo.</p>
+          <div class="product-foot"><span class="price">2000 Gdes</span><button class="btn-add" data-name="Jeu Soleil & Lune Complet" data-price="2000">Ajouter</button></div>
+        </div>
+      </article>
+
+      <!-- ================= CATÉGORIE : T-SHIRTS ================= -->
+
+      <!-- ---------- Produit 1 : T-shirt Cavaliers (2 couleurs) ---------- -->
+      <article class="product-card" data-cat="tshirts">
+        <div class="product-media">
+          <img src="images/t-shirt9.jpg" alt="T-shirt Cavaliers" class="product-photo"
+               onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+          <svg class="product-icon" viewBox="0 0 64 64" style="display:none"><use href="#ic-shirt"/></svg>
+          <span class="badge badge-new">Nouveau</span>
+        </div>
+        <div class="product-body">
+          <h3>T-shirt Cavaliers</h3>
+          <p class="product-desc">Design intemporel, vendu en paire assortie.</p>
+          <div class="color-swatches">
+            <button class="color-swatch is-active" data-img="images/t-shirt10.jpg" style="background:#1a1a1a" aria-label="Noir rayé blanc"></button>
+            <button class="color-swatch" data-img="images/t-shirt9.jpg" style="background:#ffffff;border:1px solid #ccc" aria-label="Blanc rayé rouge"></button>
+          </div>
+          <div class="product-foot"><span class="price">5000 Gdes</span><button class="btn-add" data-name="T-shirt Cavaliers" data-price="5000">Ajouter</button></div>
+        </div>
+      </article>
+
+      <!-- ---------- Produit 2 : T-shirt Rose Minimaliste (1 couleur) ---------- -->
+      <article class="product-card" data-cat="tshirts">
+        <div class="product-media">
+          <img src="images/t-shirt8.jpg" alt="T-shirt Rose Minimaliste" class="product-photo"
+               onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+          <svg class="product-icon" viewBox="0 0 64 64" style="display:none"><use href="#ic-shirt"/></svg>
+          <span class="badge badge-new">Nouveau</span>
+        </div>
+        <div class="product-body">
+          <h3>T-shirt Rose Minimaliste</h3>
+          <p class="product-desc">Motif romantique, coupe unisexe.</p>
+          <div class="product-foot"><span class="price">5000 Gdes</span><button class="btn-add" data-name="T-shirt Rose Minimaliste" data-price="5000">Ajouter</button></div>
+        </div>
+      </article>
+
+       <!-- ---------- Produit 3 : T-shirt Line Art Pensées (1 couleur) ---------- -->
+      <article class="product-card" data-cat="tshirts">
+        <div class="product-media">
+          <img src="images/t-shirt7.jpg" alt="T-shirt Line Art Pensées" class="product-photo"
+               onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+          <svg class="product-icon" viewBox="0 0 64 64" style="display:none"><use href="#ic-shirt"/></svg>
+          <span class="badge badge-new">Nouveau</span>
+        </div>
+        <div class="product-body">
+          <h3>T-shirt Line Art Pensées</h3>
+          <p class="product-desc">Coton premium, finition bicolore.</p>
+          <div class="color-swatches">
+            <button class="color-swatch is-active" data-img="images/t-shirt7.jpg" style="background:#f5f0eb" aria-label="Beige"></button>
+          </div>
+          <div class="product-foot"><span class="price">5000 Gdes</span><button class="btn-add" data-name="T-shirt Line Art Pensées" data-price="5000">Ajouter</button></div>
+        </div>
+      </article>
+
+      <!-- ---------- Produit 4 : T-shirt Panda Bambou (2 couleurs) ---------- -->
+      <article class="product-card" data-cat="tshirts">
+        <div class="product-media">
+          <img src="images/t-shirt6.jpg" alt="T-shirt Panda Bambou" class="product-photo"
+               onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+          <svg class="product-icon" viewBox="0 0 64 64" style="display:none"><use href="#ic-shirt"/></svg>
+          <span class="badge badge-new">Nouveau</span>
+        </div>
+        <div class="product-body">
+          <h3>T-shirt Panda Bambou</h3>
+          <p class="product-desc">Coton premium doux et respirant, facile à assortir avec tout type de bas.</p>
+          <div class="color-swatches">
+            <button class="color-swatch is-active" data-img="images/t-shirt6.jpg" style="background:#ffffff" aria-label="Blanc"></button>
+            <button class="color-swatch" data-img="images/t-shirt4.jpg" style="background:#C9DCE8" aria-label="Bleu ciel"></button>
+          </div>
+          <div class="product-foot"><span class="price">5000 Gdes</span><button class="btn-add" data-name="T-shirt Panda Bambou" data-price="5000">Ajouter</button></div>
+        </div>
+      </article>
+
+      <!-- ---------- Produit 5: T-shirt Sakura no Kokoro (2 couleurs) ---------- -->
+      <article class="product-card" data-cat="tshirts">
+        <div class="product-media">
+          <img src="images/t-shirt5.jpg" alt="T-shirt Sakura no Kokoro" class="product-photo"
+               onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+          <svg class="product-icon" viewBox="0 0 64 64" style="display:none"><use href="#ic-shirt"/></svg>
+          <span class="badge badge-new">Nouveau</span>
+        </div>
+        <div class="product-body">
+          <h3>T-shirt Sakura no Kokoro</h3>
+          <p class="product-desc">Motif floral japonais délicat, peint à la main.</p>
+          <div class="color-swatches">
+            <button class="color-swatch is-active" data-img="images/t-shirt5.jpg" style="background:#E8DCC3" aria-label="Beige/Crème"></button>
+            <button class="color-swatch" data-img="images/t-shirt3.jpg" style="background:#1A1A1A" aria-label="Noir"></button>
+          </div>
+          <div class="product-foot"><span class="price">5000 Gdes</span><button class="btn-add" data-name="T-shirt Sakura no Kokoro" data-price="5000">Ajouter</button></div>
+        </div>
+      </article>
+
+      <!-- ---------- Produit 6 : T-shirt Esprit en Tempête (1 couleur) ---------- -->
+      <article class="product-card" data-cat="tshirts">
+        <div class="product-media">
+          <img src="images/t-shirt2.jpg" alt="T-shirt Esprit en Tempête" class="product-photo"
+               onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+          <svg class="product-icon" viewBox="0 0 64 64" style="display:none"><use href="#ic-shirt"/></svg>
+          <span class="badge badge-new">Nouveau</span>
+        </div>
+        <div class="product-body">
+          <h3>T-shirt Esprit en Tempête</h3>
+          <p class="product-desc">Design ringer rétro et original, idéal pour couples.</p>
+          <div class="color-swatches">
+            <button class="color-swatch is-active" data-img="images/t-shirt2.jpg" style="background:#5C2A2E" aria-label="Bordeaux"></button>
+          </div>
+          <div class="product-foot"><span class="price">5000 Gdes</span><button class="btn-add" data-name="T-shirt Esprit en Tempête" data-price="5000">Ajouter</button></div>
+        </div>
+      </article>
+     
+      <!-- ---------- Produit 7 : T-shirt Never Give Up (1 couleur) ---------- -->
+      <article class="product-card" data-cat="tshirts">
+        <div class="product-media">
+          <img src="images/t-shirt1.jpg" alt="T-shirt Never Give Up" class="product-photo"
+               onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+          <svg class="product-icon" viewBox="0 0 64 64" style="display:none"><use href="#ic-shirt"/></svg>
+          <span class="badge badge-new">Nouveau</span>
+        </div>
+        <div class="product-body">
+          <h3>T-shirt Never Give Up</h3>
+          <p class="product-desc">Style épuré et moderne, parfait pour un look casual du quotidien.</p>
+          <div class="color-swatches">
+            <button class="color-swatch is-active" data-img="images/t-shirt1.jpg" style="background:#4A4A4A" aria-label="Gris anthracite"></button>
+          </div>
+          <div class="product-foot"><span class="price">6000 Gdes</span><button class="btn-add" data-name="T-shirt Never Give Up" data-price="6000">Ajouter</button></div>
+        </div>
+      </article>
+
+      <!-- ================= CATÉGORIE : CASQUETTES ================= -->
+
+      <!-- ---------- Produit 1 : Casquette Tortues Marines (2 couleurs) ---------- -->
+      <article class="product-card" data-cat="casquettes">
+        <div class="product-media">
+          <img src="images/kepi_noir.png" alt="Casquette Tortues Marines" class="product-photo"
+               onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+          <svg class="product-icon" viewBox="0 0 64 64" style="display:none"><use href="#ic-cap"/></svg>
+          <span class="badge badge-new">Nouveau</span>
+        </div>
+        <div class="product-body">
+          <h3>Casquette Tortues Marines</h3>
+          <p class="product-desc">Design sobre et élégant, coupe ajustable unisexe.</p>
+          <div class="color-swatches">
+            <button class="color-swatch is-active" data-img="images/kepi_noir.png" style="background:#1a1a1a" aria-label="Noire"></button>
+            <button class="color-swatch" data-img="images/kepi_mauve.png" style="background:#4a1525" aria-label="Rouge Bordeaux"></button>
+          </div>
+          <div class="product-foot"><span class="price">2500 Gdes</span><button class="btn-add" data-name="Casquette Tortues Marines" data-price="2500">Ajouter</button></div>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<div class="chain-divider chain-divider--sm" aria-hidden="true">
+  <svg viewBox="0 0 1200 60" preserveAspectRatio="none">
+    <path class="chain-path chain-path--a" d="M0 30 C 100 0, 200 60, 300 30 S 500 0, 600 30 S 800 60, 900 30 S 1100 0, 1200 30" fill="none" stroke-width="1.2"/>
+    <path class="chain-path chain-path--b" d="M0 30 C 100 60, 200 0, 300 30 S 500 60, 600 30 S 800 0, 900 30 S 1100 60, 1200 30" fill="none" stroke-width="1.2"/>
+  </svg>
+</div>
+
+
+<section class="section payment" id="paiement">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow">Simple et sécurisé</p>
+      <h2>Modes de paiement acceptés</h2>
+    </div>
+
+    <div class="payment-grid payment-grid--4">
+
+      <!-- ---------- MonCash ---------- -->
+      <div class="payment-card">
+        <img src="images/moncash.png" alt="Logo MonCash" class="payment-logo"
+             onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+        <svg viewBox="0 0 24 24" style="display:none"><use href="#ic-phone"/></svg>
+        <p>Paiement mobile rapide, partout en Haïti.</p>
+        <!-- Numéro sur lequel envoyer le dépôt : remplacez par votre vrai numéro -->
+        <p class="payment-number">Dépôt au <strong>+509 39 04 8544</strong></p>
+      </div>
+
+      <!-- ---------- NatCash ---------- -->
+      <div class="payment-card">
+        <img src="images/natcash.jpg" alt="Logo NatCash" class="payment-logo"
+             onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+        <svg viewBox="0 0 24 24" style="display:none"><use href="#ic-phone"/></svg>
+        <p>Paiement mobile rapide, partout en Haïti.</p>
+        <!-- Numéro sur lequel envoyer le dépôt : remplacez par votre vrai numéro -->
+        <p class="payment-number">Dépôt au <strong>+509 32 77 5433</strong></p>
+      </div>
+
+      <!-- ---------- Unibank ---------- -->
+      <div class="payment-card">
+        <img src="images/unibank.png" alt="Logo Unibank" class="payment-logo"
+             onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+        <svg viewBox="0 0 24 24" style="display:none"><use href="#ic-bank"/></svg>
+        <p>Virement bancaire direct sur notre compte.</p>
+        <!-- Remplacez par votre vrai numéro de compte et le nom du titulaire -->
+        <p class="payment-number">Compte N° <strong>0000000000</strong></p>
+        <p class="payment-number">Titulaire : <strong>Wildine Raphaël</strong></p>
+      </div>
+
+      <!-- ---------- Sogebank ---------- -->
+      <div class="payment-card">
+        <img src="images/sogebank.png" alt="Logo Sogebank" class="payment-logo"
+             onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+        <svg viewBox="0 0 24 24" style="display:none"><use href="#ic-bank"/></svg>
+        <p>Virement bancaire direct sur notre compte.</p>
+        <!-- Remplacez par votre vrai numéro de compte et le nom du titulaire -->
+        <p class="payment-number">Compte N° <strong>0000000000</strong></p>
+        <p class="payment-number">Titulaire : <strong>Wildine Raphaël</strong></p>
+      </div>
+
+    </div>
+
+    <p class="payment-note">Après votre dépôt ou virement, envoyez-nous une capture du reçu par WhatsApp pour valider votre commande.</p>
+  </div>
+</section>
+
+
+<section class="section testimonials" id="avis">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow">Ils nous font confiance</p>
+      <h2>Des couples, des sourires</h2>
+    </div>
+    <div class="testi-grid">
+      <blockquote class="testi-card">
+        <p>« Le bracelet Duo Éternel est encore plus beau en vrai. La gravure de nos prénoms a fait toute la différence. »</p>
+        <cite>— Nadège &amp; Kensley</cite>
+      </blockquote>
+      <blockquote class="testi-card">
+        <p>« Commande facile, livraison rapide à Pétion-Ville, et les bagues Alliance Duo étaient parfaites pour notre anniversaire. »</p>
+        <cite>— Stéphania &amp; Rood</cite>
+      </blockquote>
+      <blockquote class="testi-card">
+        <p>« Qualité au rendez-vous, le t-shirt His &amp; Hers ne bouge pas au lavage et le tissu est doux. »</p>
+        <cite>— Mikerlange &amp; Djennyfer</cite>
+      </blockquote>
+    </div>
+  </div>
+</section>
+
+
+<section class="section newsletter">
+  <div class="wrap newsletter-inner">
+    <div>
+      <p class="eyebrow">Restez proches</p>
+      <h2>Recevez nos nouveautés en avant-première</h2>
+    </div>
+    <!-- Le JS en bas de page intercepte l'envoi (submit) pour éviter un rechargement de page -->
+    <form class="newsletter-form" id="newsletter-form">
+      <input type="email" required placeholder="Votre adresse e-mail" aria-label="Adresse e-mail">
+      <button type="submit" class="btn btn-gold">S'inscrire</button>
+    </form>
+  </div>
+</section>
+
+
+<footer class="site-footer" id="contact">
+  <div class="wrap footer-grid">
+
+    <div class="footer-brand">
+      <a href="#top" class="brand">
+        <img
+          src="images/logo.png"
+          alt="Logo Raph's Beloved"
+          class="brand-logo"
+          onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+        <svg class="brand-mark" viewBox="0 0 64 64" aria-hidden="true" style="display:none">
+          <circle cx="24" cy="32" r="15" fill="none" stroke="currentColor" stroke-width="2"/>
+          <circle cx="40" cy="32" r="15" fill="none" stroke="currentColor" stroke-width="2"/>
+        </svg>
+        <span class="brand-text">Raph's <em>Beloved</em></span>
+      </a>
+      <p>Des accessoires élégants et personnalisés, pensés pour célébrer l'amour à deux.</p>
+      <div class="socials">
+        <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24"><use href="#ic-ig"/></svg></a>
+        <a href="https://chat.whatsapp.com/DCFQZ9VBHcGC6M9l0VgVrw?s=sw&p=i&mlu=4" aria-label="WhatsApp"><svg viewBox="0 0 24 24"><use href="#ic-wa"/></svg></a>
+      </div>
+    </div>
+
+    <div class="footer-col">
+      <h4>Boutique</h4>
+      <a href="#boutique">Bracelets</a>
+      <a href="#boutique">Bagues</a>
+      <a href="#boutique">Jeux</a>
+      <a href="#boutique">T-shirts</a>
+      <a href="#boutique">Casquettes</a>
+    </div>
+
+    <div class="footer-col">
+      <h4>Informations</h4>
+      <a href="#apropos">Notre mission</a>
+      <a href="#paiement">Paiement &amp; livraison</a>
+      <a href="#avis">Avis clients</a>
+    </div>
+
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <p>Jacmel, Haïti</p>
+      <p>+509 46 46 2819</p>
+      <p>raphsbeloved@gmail.com</p>
+      <p>Lun – Dim · 9h – 18h</p>
+    </div>
+  </div>
+
+  <div class="wrap footer-bottom">
+    <p>&copy; <span id="year"></span> Raph's Beloved. Tous droits réservés.</p>
+    <p>Fait avec élégance, pour deux.</p>
+  </div>
+</footer>
+
+
+<div class="cart-drawer" id="cart-drawer" aria-hidden="true">
+  <div class="cart-drawer-head">
+    <h3>Votre panier</h3>
+    <button id="cart-close" aria-label="Fermer le panier">&times;</button>
+  </div>
+  <ul class="cart-items" id="cart-items"><li class="cart-empty">Votre panier est vide.</li></ul>
+  <div class="cart-total">
+    <span>Total</span><strong id="cart-total">0 Gdes</strong>
+  </div>
+</div>
+<div class="cart-overlay" id="cart-overlay"></div>
+
+
+<script>
+  const navToggle = document.getElementById('nav-toggle');
+  const mainNav = document.getElementById('main-nav');
+  navToggle.addEventListener('click', () => {
+    const open = mainNav.classList.toggle('is-open');
+    navToggle.classList.toggle('is-open', open);
+    navToggle.setAttribute('aria-expanded', open);
+  });
+  mainNav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    mainNav.classList.remove('is-open');
+    navToggle.classList.remove('is-open');
+  }));
+
+  const filterBtns = document.querySelectorAll('.filter-btn');
+  const cards = document.querySelectorAll('.product-card');
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filterBtns.forEach(b => b.classList.remove('is-active'));
+      btn.classList.add('is-active');
+      const f = btn.dataset.filter;
+      cards.forEach(c => {
+        c.style.display = (f === 'all' || c.dataset.cat === f) ? '' : 'none';
+      });
+    });
+  });
+
+  document.querySelectorAll('.color-swatches').forEach(group => {
+    const card = group.closest('.product-card');
+    if (!card) return;
+    const img = card.querySelector('.product-photo');
+    group.querySelectorAll('.color-swatch').forEach(swatch => {
+      swatch.addEventListener('click', () => {
+        group.querySelectorAll('.color-swatch').forEach(s => s.classList.remove('is-active'));
+        swatch.classList.add('is-active');
+        if (img && swatch.dataset.img) {
+          img.src = swatch.dataset.img;
+        }
+      });
+    });
+  });
+
+  let cart = [];
+  const cartCountEl = document.getElementById('cart-count');
+  const cartItemsEl = document.getElementById('cart-items');
+  const cartTotalEl = document.getElementById('cart-total');
+  const cartDrawer = document.getElementById('cart-drawer');
+  const cartOverlay = document.getElementById('cart-overlay');
+
+
+  function renderCart() {
+    cartCountEl.textContent = cart.length;
+    if (cart.length === 0) {
+      cartItemsEl.innerHTML = '<li class="cart-empty">Votre panier est vide.</li>';
+    } else {
+      cartItemsEl.innerHTML = cart.map((item, i) =>
+        `<li><span>${item.name}</span><span>${item.price} Gdes</span><button class="cart-remove" data-i="${i}" aria-label="Retirer">&times;</button></li>`
+      ).join('');
+    }
+    const total = cart.reduce((s, i) => s + i.price, 0);
+    cartTotalEl.textContent = total + ' Gdes';
+  }
+
+  document.querySelectorAll('.btn-add').forEach(btn => {
+    btn.addEventListener('click', () => {
+      cart.push({ name: btn.dataset.name, price: Number(btn.dataset.price) });
+      renderCart();
+      btn.textContent = 'Ajouté ✓';
+      setTimeout(() => btn.textContent = 'Ajouter', 900);
+    });
+  });
+
+
+  cartItemsEl.addEventListener('click', e => {
+    if (e.target.classList.contains('cart-remove')) {
+      cart.splice(Number(e.target.dataset.i), 1);
+      renderCart();
+    }
+  });
+
+  function openCart() {
+    cartDrawer.classList.add('is-open');
+    cartOverlay.classList.add('is-open');
+  }
+  function closeCart() {
+    cartDrawer.classList.remove('is-open');
+    cartOverlay.classList.remove('is-open');
+  }
+  document.getElementById('cart-btn').addEventListener('click', openCart);
+  document.getElementById('cart-close').addEventListener('click', closeCart);
+  cartOverlay.addEventListener('click', closeCart);
+
+  document.getElementById('newsletter-form').addEventListener('submit', e => {
+    e.preventDefault();
+    e.target.reset();
+    alert('Merci pour votre inscription !');
+  });
+
+  document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+</body>
+</html>
