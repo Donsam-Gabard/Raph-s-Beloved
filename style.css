@@ -10,6 +10,7 @@
   --ivory:        #f3ecd9;   /* couleur du texte principal (blanc cassé) */
   --muted:        #a89f8c;   /* couleur du texte secondaire (descriptions) */
   --line:         rgba(201, 162, 39, 0.25); /* couleur des bordures fines dorées */
+  
 
   --font-display: 'Cormorant Garamond', serif; /* police des titres, élégante et romantique */
   --font-body:    'Jost', sans-serif;           /* police du texte courant, sobre */
